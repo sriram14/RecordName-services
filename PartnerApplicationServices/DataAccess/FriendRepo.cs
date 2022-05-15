@@ -2,6 +2,7 @@
 using NpgsqlTypes;
 using PartnerApplicationServices.Common;
 using PartnerApplicationServices.Models;
+using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 
@@ -64,6 +65,19 @@ namespace PartnerApplicationServices.DataAccess
 
             return errors;
 
+        }
+
+        public List<GetFriendResponse> GetFriend(string userid)
+        {
+            NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[1];
+
+            NpgsqlParameter userIdParam = new NpgsqlParameter("userid", NpgsqlDbType.Varchar);
+            userIdParam.Value = userid;
+            npgsqlParameters[0] = userIdParam;
+
+            var freindsList = base.GetDataFromPartnerDBAsync("SELECT * from public.getfriends(:userid)", CommandType.Text, npgsqlParameters).Tables[0];
+             var result = _utility.ConvertToData<GetFriendResponse>(freindsList);
+            return (List<GetFriendResponse>)result;
         }
 
     }

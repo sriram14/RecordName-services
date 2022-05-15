@@ -12,4 +12,10 @@ namespace PartnerApplicationServices.Models
         public string frienduserid { get; set; }
 	}
 
+    public class GetFriendResponse
+    {
+        public string frienduserid { get; set; }
+
+    }
+
 }
