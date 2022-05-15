@@ -20,6 +20,12 @@ namespace PartnerApplicationServices.Controllers
             _userRepo = userRepo;
         }
 
+        [HttpGet("AllUsers")]
+        public IActionResult AllUsers(string userid) 
+        {
+            return Ok(_userRepo.GetAllUsers(userid));
+        }
+
         [HttpPost("Register")]
         public IActionResult RegisterUser(UserRegistrationRequest userRegistrationRequest)
         {

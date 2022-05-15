@@ -2,6 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ShowAllFiles>true</ShowAllFiles>
-    <NameOfLastUsedPublishProfile>C:\Users\Standard\source\repos\SpeechToken\SpeechToken\Properties\PublishProfiles\SpeechToken20220513160356 - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\Standard\source\repos\SpeechToken\RecordName-services\SpeechToken\Properties\PublishProfiles\SpeechToken20220513160356 - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

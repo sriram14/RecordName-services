@@ -4,6 +4,6 @@ namespace PartnerAppRegistrationService.DataAccess
 {
     public interface IPartnerAppRepo
     {
-        public string PartnerAppRegistration(PartnerAppRegistrationRequest partnerAppRegistrationRequest);
+        public string PartnerAppRegistration(PartnerAppRegistrationDetails partnerAppRegistrationRequest);
     }
 }

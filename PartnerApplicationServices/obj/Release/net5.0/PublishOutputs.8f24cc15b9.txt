@@ -1,0 +1,13 @@
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\PartnerApplicationServices.exe
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\appsettings.json
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\PartnerApplicationServices.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\PartnerApplicationServices.deps.json
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\PartnerApplicationServices.runtimeconfig.json
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\PartnerApplicationServices.pdb
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\Npgsql.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerApplicationServices\obj\Release\net5.0\PubTmp\Out\System.Runtime.CompilerServices.Unsafe.dll

@@ -1,6 +1,5 @@
-﻿
-
-using PartnerApplicationServices.Models;
+﻿using PartnerApplicationServices.Models;
+using System.Collections.Generic;
 
 namespace PartnerApplicationServices.DataAccess
 {
@@ -8,5 +7,6 @@ namespace PartnerApplicationServices.DataAccess
     {
         public string RegisterUser(UserRegistrationRequest userRegistrationRequest);
         bool VerifyUser(UserLoginRequest userLoginRequest);
+        IList<GetAllUserResponse> GetAllUsers(string userid);
     }
 }

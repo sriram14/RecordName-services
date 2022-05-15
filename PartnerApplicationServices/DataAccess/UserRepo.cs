@@ -3,6 +3,7 @@ using Npgsql;
 using NpgsqlTypes;
 using PartnerApplicationServices.Common;
 using PartnerApplicationServices.Models;
+using System.Collections.Generic;
 using System.Data;
 
 namespace PartnerApplicationServices.DataAccess
@@ -14,6 +15,21 @@ namespace PartnerApplicationServices.DataAccess
         {
             _utility = utility;
         }
+
+        public IList<GetAllUserResponse> GetAllUsers(string userid)
+        {
+            NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[1];
+
+            NpgsqlParameter userIdParam = new NpgsqlParameter("uid", NpgsqlDbType.Varchar);
+            userIdParam.Value = userid;
+            npgsqlParameters[0] = userIdParam;
+
+
+            var response = base.GetDataFromPartnerDBAsync("select * from public.getallusers(:uid)", CommandType.Text, npgsqlParameters).Tables[0];
+
+            return _utility.ConvertToData<GetAllUserResponse>(response);
+        }
+
         public string RegisterUser(UserRegistrationRequest userRegistrationRequest)
         {
             string errors = string.Empty;
@@ -88,7 +104,7 @@ namespace PartnerApplicationServices.DataAccess
             pwdParam.Value = userLoginRequest.password;
             npgsqlParameters[1] = pwdParam;
 
-            var loginStatus = base.GetDataFromPartnerDBAsync("select public.verifyuser(:uid, :pwd)", CommandType.Text, npgsqlParameters).Tables[0];
+            var loginStatus = base.GetDataFromPartnerDBAsync("select * from public.verifyuser(:uid, :pwd)", CommandType.Text, npgsqlParameters).Tables[0];
 
             var status = _utility.ConvertToData<GetUserCount>(loginStatus);
 

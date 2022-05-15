@@ -1,0 +1,13 @@
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\PartnerAppRegistrationService.exe
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\appsettings.json
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\PartnerAppRegistrationService.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\PartnerAppRegistrationService.deps.json
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\PartnerAppRegistrationService.runtimeconfig.json
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\PartnerAppRegistrationService.pdb
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\Npgsql.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Standard\source\repos\SpeechToken\RecordName-services\PartnerAppRegistrationService\obj\Release\net5.0\PubTmp\Out\System.Runtime.CompilerServices.Unsafe.dll

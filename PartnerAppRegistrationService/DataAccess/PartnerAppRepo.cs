@@ -14,7 +14,7 @@ namespace PartnerAppRegistrationService.DataAccess
         {
             _utility = utility;
         }
-        public string PartnerAppRegistration(PartnerAppRegistrationRequest partnerAppRegistrationRequest)
+        public string PartnerAppRegistration(PartnerAppRegistrationDetails partnerAppRegistrationRequest)
         {
             string errors = string.Empty;
             NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[8];

@@ -1,0 +1,33 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SpeechToken",
+    "version": "v1"
+  },
+  "paths": {
+    "/GetToken": {
+      "get": {
+        "tags": [
+          "Speech"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "clientID",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "userID",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  }
+}

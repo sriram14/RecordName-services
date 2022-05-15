@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PartnerAppRegistrationService.Models
 {
-    public class PartnerAppRegistrationRequest
+    public class PartnerAppRegistrationDetails
     {
         public string guid { get; set; }
         public string hosturl { get; set; }
@@ -17,5 +17,12 @@ namespace PartnerAppRegistrationService.Models
         public DateTime updatedtime { get; set; }
 
 	}
+
+    public class PartnerAppRegistrationRequest
+    {
+        public string hosturl { get; set; }
+        public string description { get; set; }
+        public string userid { get; set; }
+    }
 
 }

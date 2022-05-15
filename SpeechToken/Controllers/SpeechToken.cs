@@ -9,38 +9,15 @@ using System.Threading.Tasks;
 namespace SpeechToken.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class SpeechTokenController : ControllerBase
+    public class SpeechController : ControllerBase
     {
         private readonly string FetchTokenUri;
         private readonly string SubscriptionKey;
-        private readonly string Database;
-        public SpeechTokenController(ILogger<SpeechTokenController> logger, IConfiguration configuration)
+        public SpeechController(ILogger<SpeechController> logger, IConfiguration configuration)
         {
-            Database = configuration["ConnectionStrings:Database"];
             FetchTokenUri = configuration["ConnectionStrings:Token_URL"];
             SubscriptionKey = configuration["ConnectionStrings:Subscription_Key"];
         }
-
-        [HttpGet("TestDB")]
-        public async Task<IActionResult> TestDBAsync()
-        {
-            await using var conn = new NpgsqlConnection(Database);
-            await conn.OpenAsync();
-            var output = "";
-
-            await using (var cmd = new NpgsqlCommand("SELECT dname FROM public.dept", conn))
-            await using (var reader = await cmd.ExecuteReaderAsync())
-            {
-                while (await reader.ReadAsync())
-                {
-                    output += reader.GetString(0);
-                }
-            }
-            return Ok(output);
-        }
-
-        
 
         [HttpGet("GetToken")]
         public async Task<IActionResult> GetToken(string clientID, string userID)
