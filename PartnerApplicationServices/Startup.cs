@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PartnerApplicationServices.Common;
+using PartnerApplicationServices.DataAccess;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +24,17 @@ namespace PartnerApplicationServices
         }
 
         public IConfiguration Configuration { get; }
+        public static IConfigurationSection ConnectionStrings { get; private set; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddControllers();
+            ConnectionStrings = Configuration.GetSection("ConnectionStrings");
+            services.AddScoped<IUtility, Utility>();
+            services.AddScoped<IFriendRepo, FriendRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PartnerApplicationServices", Version = "v1" });
