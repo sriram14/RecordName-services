@@ -35,6 +35,7 @@ namespace PartnerApplicationServices
             ConnectionStrings = Configuration.GetSection("ConnectionStrings");
             services.AddScoped<IUtility, Utility>();
             services.AddScoped<IFriendRepo, FriendRepo>();
+            services.AddScoped<IUserRepo, UserRepo>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PartnerApplicationServices", Version = "v1" });
