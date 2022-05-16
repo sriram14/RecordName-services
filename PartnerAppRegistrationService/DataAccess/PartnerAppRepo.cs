@@ -2,7 +2,9 @@
 using NpgsqlTypes;
 using PartnerAppRegistrationService.Common;
 using PartnerAppRegistrationService.Models;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PartnerAppRegistrationService.DataAccess
@@ -14,7 +16,7 @@ namespace PartnerAppRegistrationService.DataAccess
         {
             _utility = utility;
         }
-        public string PartnerAppRegistration(PartnerAppRegistrationRequest partnerAppRegistrationRequest)
+        public string PartnerAppRegistration(PartnerAppRegistrationDetails partnerAppRegistrationRequest)
         {
             string errors = string.Empty;
             NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[8];
@@ -58,6 +60,15 @@ namespace PartnerAppRegistrationService.DataAccess
 
             return errors;
 
+        }
+
+        public IEnumerable<GetAllPartnerAppsResponse> GetAllPartnerApps()
+        {
+            NpgsqlParameter[] npgsqlParameters = null;
+
+            var getAllPartners = base.GetDataFromPartnerDBAsync("SELECT * from public.getallpartners()", CommandType.Text, npgsqlParameters).Tables[0];
+            var result = _utility.ConvertToData<GetAllPartnerAppsResponse>(getAllPartners);
+            return result.AsEnumerable();
         }
 
 

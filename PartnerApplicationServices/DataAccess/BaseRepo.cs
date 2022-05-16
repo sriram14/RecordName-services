@@ -63,12 +63,13 @@ namespace PartnerApplicationServices.DataAccess
                     using (NpgsqlTransaction npgsqlTransaction = conn.BeginTransaction())
                     {
                         command.Transaction = npgsqlTransaction;
-                        command.ExecuteNonQuery();
+                        
+                       command.ExecuteNonQuery();
                         if (includeErrorsinOutput)
                         {
                             errors = command.Parameters["errors"].Value.ToString();
                         }
-                        if (string.IsNullOrEmpty(errors))
+                        if (string.IsNullOrEmpty(errors)||errors.Equals("SUCCESS"))
                         {
                             npgsqlTransaction.Commit();
                         }

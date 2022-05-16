@@ -23,10 +23,18 @@ namespace PartnerAppRegistrationService.Controllers
         {
             try
             {
-                string errors = _partnerAppRepo.PartnerAppRegistration(partnerAppRegistrationRequest);
+                PartnerAppRegistrationDetails details = new PartnerAppRegistrationDetails();
+                details.guid = Guid.NewGuid().ToString();
+                details.createdby = partnerAppRegistrationRequest.userid;
+                details.updatedby = partnerAppRegistrationRequest.userid;
+                details.createdtime = DateTime.Now;
+                details.updatedtime = DateTime.Now;
+                details.description = partnerAppRegistrationRequest.description;
+                details.hosturl = partnerAppRegistrationRequest.hosturl;
+                string errors = _partnerAppRepo.PartnerAppRegistration(details);
                 if (string.IsNullOrEmpty(errors))
                 {
-                    return Ok("SUCCESS");
+                    return Ok(details.guid);
                 }
                 else
                 {
@@ -37,6 +45,17 @@ namespace PartnerAppRegistrationService.Controllers
             {
                 return BadRequest(ex);
             }
+
+
+
+        }
+
+        [HttpGet("GetAllPartnerApps")]
+        public IActionResult GetAllPartnerApps()
+        {
+
+
+            return Ok(_partnerAppRepo.GetAllPartnerApps());
 
 
 
