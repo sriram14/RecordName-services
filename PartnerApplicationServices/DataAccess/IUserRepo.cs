@@ -6,7 +6,9 @@ namespace PartnerApplicationServices.DataAccess
     public interface IUserRepo
     {
         public string RegisterUser(UserRegistrationRequest userRegistrationRequest);
-        bool VerifyUser(UserLoginRequest userLoginRequest);
-        IList<GetAllUserResponse> GetAllUsers(string userid);
+        public bool VerifyUser(UserLoginRequest userLoginRequest);
+        public IList<GetAllUserResponse> GetAllUsers(string userid);
+        public string CreateAdmin(string createrUserId, string userId);
+        GetUserDetailResponse GetUserDetail(string userId);
     }
 }

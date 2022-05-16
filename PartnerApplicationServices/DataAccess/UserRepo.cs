@@ -16,6 +16,30 @@ namespace PartnerApplicationServices.DataAccess
             _utility = utility;
         }
 
+        public string CreateAdmin(string createrUserId, string userId)
+        {
+            string results = string.Empty;
+            NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[3];
+
+            NpgsqlParameter createruserIdParam = new NpgsqlParameter("createruserid", NpgsqlDbType.Varchar);
+            createruserIdParam.Value = createrUserId;
+            npgsqlParameters[0] = createruserIdParam;
+
+            NpgsqlParameter othersuseridParam = new NpgsqlParameter("othersuserid", NpgsqlDbType.Varchar);
+            othersuseridParam.Value = userId;
+            npgsqlParameters[1] = othersuseridParam;
+
+            NpgsqlParameter errorParam = new NpgsqlParameter("errors", NpgsqlDbType.Text, -1)
+            {
+                Direction = ParameterDirection.InputOutput
+            };
+            errorParam.Value = "";
+            npgsqlParameters[2] = errorParam;
+
+            results = base.UpdateDataToPartnerDB("select public.createadminrole(:createruserid, :othersuserid, :errors)", CommandType.Text, npgsqlParameters);
+            return results;
+        }
+
         public IList<GetAllUserResponse> GetAllUsers(string userid)
         {
             NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[1];
@@ -28,6 +52,22 @@ namespace PartnerApplicationServices.DataAccess
             var response = base.GetDataFromPartnerDBAsync("select * from public.getallusers(:uid)", CommandType.Text, npgsqlParameters).Tables[0];
 
             return _utility.ConvertToData<GetAllUserResponse>(response);
+        }
+
+        public GetUserDetailResponse GetUserDetail(string userId)
+        {
+            NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[1];
+
+            NpgsqlParameter userIdParam = new NpgsqlParameter("uid", NpgsqlDbType.Varchar);
+            userIdParam.Value = userId;
+            npgsqlParameters[0] = userIdParam;
+
+
+            var response = base.GetDataFromPartnerDBAsync("select * from  public.getuserdetail(:uid)", CommandType.Text, npgsqlParameters).Tables[0];
+
+            var responseList =  _utility.ConvertToData<GetUserDetailResponse>(response);
+
+            return responseList.Count > 0 ? responseList[0] : null;
         }
 
         public string RegisterUser(UserRegistrationRequest userRegistrationRequest)

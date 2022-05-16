@@ -70,5 +70,29 @@ namespace PartnerApplicationServices.Controllers
 
         }
 
+       [HttpPost("CreateAdmin")]
+       public IActionResult CreateAdmin(string createrUserId, string userId)
+       {
+            
+            string result = _userRepo.CreateAdmin(createrUserId, userId);
+            if(result.Equals("SUCCESS"))
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+            
+
+       }
+
+        [HttpGet("GetUserDetail")]
+        public IActionResult  GetUserDetail(string userId)
+       {
+            GetUserDetailResponse result = _userRepo.GetUserDetail(userId);
+            return Ok(result);
+
+       }
     }
 }

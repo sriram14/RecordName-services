@@ -104,8 +104,8 @@
                 "displayName": "PartnerApplicationServices",
                 "apiRevision": "1",
                 "description": null,
-                "subscriptionRequired": true,
-                "serviceUrl": null,
+                "subscriptionRequired": false,
+                "serviceUrl": "https://partnerapplicationservices20220516023822.azurewebsites.net",
                 "path": "partner",
                 "protocols": [
                   "https"
