@@ -52,7 +52,7 @@ namespace RecordYourName_API.Controllers
                             Issuer = Startup.ConnectionStrings.GetSection("Issuer").Value,
                             Audience = Startup.ConnectionStrings.GetSection("Audience").Value,
                             IssuedAt = DateTime.Now,
-                            Expires = DateTime.Now.AddMinutes(5),
+                            Expires = DateTime.Now.AddMinutes(15),
                             SigningCredentials = signingCredentials,
                             EncryptingCredentials = encryptingCredentials,
                             Subject = new ClaimsIdentity(claims)

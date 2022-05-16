@@ -1,0 +1,14 @@
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\RecordYourName_API.exe
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\appsettings.Development.json
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\appsettings.json
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\RecordYourName_API.dll
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\RecordYourName_API.deps.json
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\RecordYourName_API.runtimeconfig.json
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\RecordYourName_API.pdb
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\Microsoft.OpenApi.dll
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\Newtonsoft.Json.dll
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\Npgsql.dll
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\Standard\source\RecordName-services\RecordYourName_API\obj\Release\net5.0\PubTmp\Out\System.Runtime.CompilerServices.Unsafe.dll

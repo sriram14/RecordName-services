@@ -37,11 +37,14 @@ namespace PartnerApplicationServices.Controllers
 
 
         [HttpPost("AddFriend")]
-        public IActionResult AddFriend(Friend friend)
+        public IActionResult AddFriend(string friendid)
         {
             try
             {
-                string errors = _friendRepo.AddFriend(friend);
+                Friend pair = new Friend();
+                pair.userid = Startup.UserClaims.FirstOrDefault(x => x.Type == "userid")?.Value;
+                pair.frienduserid = friendid;
+                string errors = _friendRepo.AddFriend(pair);
                 if (string.IsNullOrEmpty(errors))
                 {
                     return Ok("SUCCESS");
@@ -59,10 +62,13 @@ namespace PartnerApplicationServices.Controllers
         }
 
         [HttpPost("RemoveFriend")]
-        public IActionResult RemoveFriend(Friend friend)
+        public IActionResult RemoveFriend(string friendid)
         {
             try
             {
+                Friend friend = new Friend();
+                friend.userid = Startup.UserClaims.FirstOrDefault(x => x.Type == "userid")?.Value;
+                friend.frienduserid = friendid;
                 string errors = _friendRepo.RemoveFriend(friend);
                 if (string.IsNullOrEmpty(errors))
                 {

@@ -77,10 +77,10 @@ namespace PartnerApplicationServices.Controllers
         }
 
         [HttpPost("CreateAdmin")]
-        public IActionResult CreateAdmin(string createrUserId, string userId)
+        public IActionResult CreateAdmin(string userid)
         {
 
-            string result = _userRepo.CreateAdmin(createrUserId, userId);
+            string result = _userRepo.CreateAdmin(Startup.UserClaims.FirstOrDefault(x => x.Type == "userid")?.Value, userid);
             if (result.Equals("SUCCESS"))
             {
                 return Ok(result);
@@ -94,9 +94,9 @@ namespace PartnerApplicationServices.Controllers
         }
 
         [HttpGet("GetUserDetail")]
-        public IActionResult GetUserDetail(string userId)
+        public IActionResult GetUserDetail(string userid)
         {
-            GetUserDetailResponse result = _userRepo.GetUserDetail(userId);
+            GetUserDetailResponse result = _userRepo.GetUserDetail(userid);
             return Ok(result);
 
         }

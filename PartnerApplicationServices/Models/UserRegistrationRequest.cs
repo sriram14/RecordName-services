@@ -16,7 +16,7 @@ namespace PartnerApplicationServices.Models
         public string emailid { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
-        public string prefferedname { get; set; }
+        public string preferredname { get; set; }
         public string location { get; set; }
     }
 }
