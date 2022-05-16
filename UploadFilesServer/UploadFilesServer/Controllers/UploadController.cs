@@ -11,6 +11,10 @@ using UploadFilesServer.Models;
 using UploadFilesServer.services;
 using UploadFilesServer.Common;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace UploadFilesServer.Controllers
 {
@@ -28,20 +32,34 @@ namespace UploadFilesServer.Controllers
         {
             try
             {
-                
-                if (audioMetaData.file.Length > 0)
+                TokenReuest tokenReuest = new TokenReuest();
+                tokenReuest.userid = audioMetaData.userId;
+                tokenReuest.token = audioMetaData.token;
+                HttpClient httpClient = new HttpClient();
+                StringContent content = new StringContent(JsonConvert.SerializeObject(tokenReuest), Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("https://ryn-partnerapp.azure-api.net/api/User/ValidateToken", content);
+                if(response.IsSuccessStatusCode)
                 {
-                    var fileName = audioMetaData.file.FileName;
-                    string blobName = await uploadService.UploadAsync(audioMetaData.file.OpenReadStream(), fileName, audioMetaData.file.ContentType);
-                    IConfigurationSection connectionStrings = Startup.ConnectionStrings;
-                    audioMetaData.blobUrl  =  String.Format(connectionStrings.GetSection("blobStorageUrl").Value + "recordvoice/" + blobName) ;
-                    string result = await uploadService.AddAudioMetaData(audioMetaData);
-                    return Ok(new { audioMetaData.blobUrl });
+                    if (audioMetaData.file.Length > 0)
+                    {
+                        var fileName = "file"+ Guid.NewGuid().ToString();
+                        string blobName = await uploadService.UploadAsync(audioMetaData.file.OpenReadStream(), fileName, audioMetaData.file.ContentType);
+                        IConfigurationSection connectionStrings = Startup.ConnectionStrings;
+                        audioMetaData.blobUrl = String.Format(connectionStrings.GetSection("blobStorageUrl").Value + "recordvoice/" + blobName);
+                        string result = await uploadService.AddAudioMetaData(audioMetaData);
+                        return Ok(new { audioMetaData.blobUrl });
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+
                 }
                 else
                 {
-                    return BadRequest();
-                }
+                     return Unauthorized();
+
+                }              
             }
             catch (Exception ex)
             {
@@ -50,40 +68,54 @@ namespace UploadFilesServer.Controllers
         }
 
         [HttpPost(nameof(UploadOthersFile))]
-        public async Task<IActionResult> UploadOthersFile(IFormFile file,[FromQuery] string createruserId, [FromQuery] string othersuserId, [FromQuery] string partnerId)
+        public async Task<IActionResult> UploadOthersFile(IFormFile file,[FromQuery] string token, [FromQuery] string createruserId, [FromQuery] string othersuserId, [FromQuery] string partnerId)
         {
             try
             {
-
-                if (file.Length > 0)
+                TokenReuest tokenReuest = new TokenReuest();
+                tokenReuest.userid = createruserId;
+                tokenReuest.token = token;
+                HttpClient httpClient = new HttpClient();
+                StringContent content = new StringContent(JsonConvert.SerializeObject(tokenReuest), Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync("https://ryn-partnerapp.azure-api.net/api/User/ValidateToken", content);
+                if (response.IsSuccessStatusCode)
                 {
-                    var fileName = file.FileName;
-                    string blobName = await uploadService.UploadAsync(file.OpenReadStream(), fileName, file.ContentType);
-                    IConfigurationSection connectionStrings = Startup.ConnectionStrings;
-                    AudioMetaData audioMetaData = new AudioMetaData();
-                    audioMetaData.userId = othersuserId;
-                    audioMetaData.partnerId = partnerId;
-                    audioMetaData.fileSize = (int)file.Length;
-                    string extension = Path.GetExtension(fileName);
-                    audioMetaData.fileType = extension;
-                    audioMetaData.blobUrl = String.Format(connectionStrings.GetSection("blobStorageUrl").Value + "recordvoice/" + blobName);
 
-                    bool isAdmin = uploadService.isAdminUser(createruserId);
-                    if(isAdmin)
+                    if (file.Length > 0)
                     {
-                        string result = await uploadService.AddAudioMetaData(audioMetaData,createruserId);
-                        return Ok(new { audioMetaData.blobUrl });
+                        var fileName = "file" + Guid.NewGuid().ToString();
+                        string blobName = await uploadService.UploadAsync(file.OpenReadStream(), fileName, file.ContentType);
+                        IConfigurationSection connectionStrings = Startup.ConnectionStrings;
+                        AudioMetaData audioMetaData = new AudioMetaData();
+                        audioMetaData.userId = othersuserId;
+                        audioMetaData.partnerId = partnerId;
+                        audioMetaData.fileSize = (int)file.Length;
+                        string extension = Path.GetExtension(fileName);
+                        audioMetaData.fileType = extension;
+                        audioMetaData.blobUrl = String.Format(connectionStrings.GetSection("blobStorageUrl").Value + "recordvoice/" + blobName);
 
-                    }else
-                    {
-                        return Ok(Unauthorized);
+                        bool isAdmin = uploadService.isAdminUser(createruserId);
+                        if (isAdmin)
+                        {
+                            string result = await uploadService.AddAudioMetaData(audioMetaData, createruserId);
+                            return Ok(new { audioMetaData.blobUrl });
+                        }
+                        else
+                        {
+                            return Unauthorized();
+                        }
+
                     }
-                    
+                    else
+                    {
+                        return BadRequest();
+                    }
                 }
                 else
                 {
-                    return BadRequest();
+                    return Unauthorized();
                 }
+
             }
             catch (Exception ex)
             {

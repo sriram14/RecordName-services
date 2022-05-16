@@ -35,6 +35,7 @@ namespace UploadFilesServer
             services.AddScoped<IUtility, Common.Utility>();
             services.AddScoped<IUploadService, UploadService>();
             services.AddHttpContextAccessor();
+            services.AddCors();
             ConnectionStrings = Configuration.GetSection("ConnectionStrings");
 
             services.AddSwaggerGen(options =>
@@ -62,11 +63,17 @@ namespace UploadFilesServer
 
             app.UseHttpsRedirection();
 
+
             app.UseRouting();
+            app.UseCors(x => x
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .SetIsOriginAllowed(origin => true) // allow any origin
+                .AllowCredentials()); // allow credentials
 
             //app.UseAuthorization();
 
-            
+
 
             app.UseEndpoints(endpoints =>
             {

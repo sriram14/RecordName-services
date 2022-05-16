@@ -9,6 +9,7 @@ namespace UploadFilesServer.Models
     public class AudioMetaData
     {
         public IFormFile file { get; set; }
+        public string token { get; set; }
         public string userId { get; set; }
         public string partnerId { get; set; }
         public string blobUrl { get; set; }
@@ -19,5 +20,12 @@ namespace UploadFilesServer.Models
     public class UserResponse
     {
         public bool isadmin { get; set; }
+    }
+
+    public class TokenReuest
+    {
+        public string token { get; set; }
+        public string userid { get; set; }
+
     }
 }
