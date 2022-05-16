@@ -152,5 +152,63 @@ namespace PartnerApplicationServices.DataAccess
 
             return success_status;
         }
+
+        public string UpdateUserDetail(UpdateUserDetailRequest updateUserDetailRequest)
+        {
+            string errors = string.Empty;
+            NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[11];
+
+            NpgsqlParameter idParam = new NpgsqlParameter("sid", NpgsqlDbType.Integer);
+            idParam.Value = updateUserDetailRequest.userid;
+            npgsqlParameters[0] = idParam;
+
+            NpgsqlParameter uidParam = new NpgsqlParameter("uid", NpgsqlDbType.Varchar);
+            uidParam.Value = updateUserDetailRequest.userid;
+            npgsqlParameters[1] = uidParam;
+
+            NpgsqlParameter firstnameParam = new NpgsqlParameter("fname", NpgsqlDbType.Varchar);
+            firstnameParam.Value = updateUserDetailRequest.firstname;
+            npgsqlParameters[2] = firstnameParam;
+
+            NpgsqlParameter lastnameParam = new NpgsqlParameter("lname", NpgsqlDbType.Varchar);
+            lastnameParam.Value = updateUserDetailRequest.lastname;
+            npgsqlParameters[3] = lastnameParam;
+
+            NpgsqlParameter preferrednameParam = new NpgsqlParameter("prefname", NpgsqlDbType.Varchar);
+            preferrednameParam.Value = updateUserDetailRequest.preferredname;
+            npgsqlParameters[4] = preferrednameParam;
+
+            NpgsqlParameter avataridParam = new NpgsqlParameter("avataarid", NpgsqlDbType.Integer);
+            avataridParam.Value = updateUserDetailRequest.avatarid;
+            npgsqlParameters[5] = avataridParam;
+
+            NpgsqlParameter locParam = new NpgsqlParameter("loc", NpgsqlDbType.Varchar);
+            locParam.Value = updateUserDetailRequest.location;
+            npgsqlParameters[6] = locParam;
+
+            NpgsqlParameter genderParam = new NpgsqlParameter("sex", NpgsqlDbType.Varchar);
+            genderParam.Value = updateUserDetailRequest.gender;
+            npgsqlParameters[7] = genderParam;
+
+            NpgsqlParameter emailidParam = new NpgsqlParameter("email", NpgsqlDbType.Varchar);
+            emailidParam.Value = updateUserDetailRequest.email;
+            npgsqlParameters[8] = emailidParam;
+
+            NpgsqlParameter pwdParam = new NpgsqlParameter("pwd", NpgsqlDbType.Varchar);
+            pwdParam.Value = updateUserDetailRequest.password;
+            npgsqlParameters[9] = pwdParam;
+
+            NpgsqlParameter errorParam = new NpgsqlParameter("errors", NpgsqlDbType.Text, -1)
+            {
+                Direction = ParameterDirection.InputOutput
+            };
+            errorParam.Value = "";
+            npgsqlParameters[10] = errorParam;
+
+            errors = base.UpdateDataToPartnerDB("select public.updateuserdetail(:sid,:uid, :fname, :lname, :prefname, :avataarid, :loc, :sex, :email, :pwd, :errors)", CommandType.Text, npgsqlParameters);
+
+            return errors;
+        }
+
     }
 }

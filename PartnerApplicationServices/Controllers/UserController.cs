@@ -26,7 +26,7 @@ namespace PartnerApplicationServices.Controllers
         }
 
         [HttpGet("AllUsers")]
-        public IActionResult AllUsers() 
+        public IActionResult AllUsers()
         {
             return Ok(_userRepo.GetAllUsers(Startup.UserClaims.FirstOrDefault(x => x.Type == "userid")?.Value));
         }
@@ -77,11 +77,11 @@ namespace PartnerApplicationServices.Controllers
         }
 
         [HttpPost("CreateAdmin")]
-       public IActionResult CreateAdmin(string createrUserId, string userId)
-       {
-            
+        public IActionResult CreateAdmin(string createrUserId, string userId)
+        {
+
             string result = _userRepo.CreateAdmin(createrUserId, userId);
-            if(result.Equals("SUCCESS"))
+            if (result.Equals("SUCCESS"))
             {
                 return Ok(result);
             }
@@ -89,16 +89,30 @@ namespace PartnerApplicationServices.Controllers
             {
                 return BadRequest(result);
             }
-            
 
-       }
+
+        }
 
         [HttpGet("GetUserDetail")]
-        public IActionResult  GetUserDetail(string userId)
-       {
+        public IActionResult GetUserDetail(string userId)
+        {
             GetUserDetailResponse result = _userRepo.GetUserDetail(userId);
             return Ok(result);
 
-       }
+        }
+
+
+
+
+
+        [HttpPost("UpdateUserDetail")]
+        public IActionResult UpdateUserDetail(UpdateUserDetailRequest updateUserDetailRequest)
+        {
+            string errors = _userRepo.UpdateUserDetail(updateUserDetailRequest);
+            return Ok();
+
+        }
     }
+
 }
+
