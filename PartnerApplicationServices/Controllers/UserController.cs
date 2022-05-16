@@ -119,6 +119,14 @@ namespace PartnerApplicationServices.Controllers
 
         }
 
+        [HttpGet("GetMyProfie")]
+        public IActionResult GetMyProfile()
+        {
+            GetUserDetailResponse result = _userRepo.GetUserDetail(Startup.UserClaims.FirstOrDefault(x => x.Type == "userid")?.Value);
+            return Ok(result);
+
+        }
+
 
 
 
