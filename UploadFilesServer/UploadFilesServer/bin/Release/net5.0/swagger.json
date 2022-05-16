@@ -1,0 +1,58 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Record your name - upload to blob storage HTTP API",
+    "description": "The upload to blob storage Microservice HTTP API. This is a Data-Driven microservice ",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Upload/UploadFile": {
+      "post": {
+        "tags": [
+          "Upload"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "file",
+            "type": "file"
+          },
+          {
+            "in": "formData",
+            "name": "userId",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "partnerId",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "blobUrl",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "fileSize",
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "formData",
+            "name": "fileType",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  }
+}
