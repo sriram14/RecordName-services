@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace PartnerApplicationServices.Models
 {
-    public class UserLoginRequest
+    public class LoginRequest
     {
         public string userid { get; set; }
         public string password { get; set; }
     }
-    public class GetUserCount
+    public class LoginResponse
     {
         public bool verifyuser { get; set; }
     }

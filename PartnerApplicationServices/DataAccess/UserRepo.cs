@@ -131,7 +131,7 @@ namespace PartnerApplicationServices.DataAccess
             return errors;
         }
 
-        public bool VerifyUser(UserLoginRequest userLoginRequest)
+        public bool VerifyUser(LoginRequest userLoginRequest)
         {
             bool success_status = false;
             NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[2];
@@ -146,7 +146,7 @@ namespace PartnerApplicationServices.DataAccess
 
             var loginStatus = base.GetDataFromPartnerDBAsync("select * from public.verifyuser(:uid, :pwd)", CommandType.Text, npgsqlParameters).Tables[0];
 
-            var status = _utility.ConvertToData<GetUserCount>(loginStatus);
+            var status = _utility.ConvertToData<LoginResponse>(loginStatus);
 
             success_status = status[0].verifyuser;
 

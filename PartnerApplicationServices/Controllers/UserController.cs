@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PartnerApplicationServices.DataAccess;
 using PartnerApplicationServices.Models;
+using PartnerApplicationServices.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +13,16 @@ namespace PartnerApplicationServices.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserRepo _userRepo;
+        private readonly ILoginServices _loginServices;
 
-        public UserController(IUserRepo userRepo)
+        public UserController(IUserRepo userRepo, ILoginServices loginServices)
         {
             _userRepo = userRepo;
+            _loginServices = loginServices;
         }
 
         [HttpGet("AllUsers")]
@@ -26,6 +31,9 @@ namespace PartnerApplicationServices.Controllers
             return Ok(_userRepo.GetAllUsers(userid));
         }
 
+        
+
+        [AllowAnonymous]
         [HttpPost("Register")]
         public IActionResult RegisterUser(UserRegistrationRequest userRegistrationRequest)
         {
@@ -48,20 +56,19 @@ namespace PartnerApplicationServices.Controllers
 
         }
 
+        [AllowAnonymous]
         [HttpPost("Login")]
-        public IActionResult VerifyUser(UserLoginRequest userLoginRequest)
+        public async Task<IActionResult> VerifyUserAsync(LoginRequest userLoginRequest)
         {
             try
             {
                 bool login_status = _userRepo.VerifyUser(userLoginRequest);
-                if (!login_status)
+                if (login_status)
                 {
-                    return Unauthorized();
+                    var tokenString = await _loginServices.GenerateJSONWebToken(userLoginRequest);
+                    return Ok(new { token = tokenString });
                 }
-                else
-                {
-                    return Ok(userLoginRequest.userid);
-                }
+                return Unauthorized();
             }
             catch (Exception ex)
             {
@@ -70,7 +77,7 @@ namespace PartnerApplicationServices.Controllers
 
         }
 
-       [HttpPost("CreateAdmin")]
+        [HttpPost("CreateAdmin")]
        public IActionResult CreateAdmin(string createrUserId, string userId)
        {
             

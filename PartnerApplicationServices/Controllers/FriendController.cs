@@ -6,11 +6,13 @@ using PartnerApplicationServices.Models;
 using PartnerApplicationServices.DataAccess;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PartnerApplicationServices.Controllers
 {
     [Route("")]
     [ApiController]
+    [Authorize]
     public class FriendController : ControllerBase
     {
         private readonly IFriendRepo _friendRepo;
