@@ -26,12 +26,11 @@ namespace PartnerApplicationServices.Controllers
         }
 
         [HttpGet("AllUsers")]
-        public IActionResult AllUsers(string userid) 
+        public IActionResult AllUsers() 
         {
-            return Ok(_userRepo.GetAllUsers(userid));
+            return Ok(_userRepo.GetAllUsers(Startup.UserClaims.FirstOrDefault(x => x.Type == "userid")?.Value));
         }
 
-        
 
         [AllowAnonymous]
         [HttpPost("Register")]

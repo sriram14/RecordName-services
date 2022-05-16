@@ -28,7 +28,7 @@ namespace PartnerApplicationServices.Services
 
 
             var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Sub, userInfo.userid),
+                new Claim("userid", userInfo.userid),
                 new Claim("IsAdmin", "true")
             };
 

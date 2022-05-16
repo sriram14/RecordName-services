@@ -5,6 +5,12 @@ using Npgsql;
 using Microsoft.Extensions.Configuration;
 using PartnerUserLoginService.Models;
 using PartnerUserLoginService.DataAccess;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
+using PartnerUserLoginService;
+using System.Threading.Tasks;
 
 namespace RecordYourName_API.Controllers
 {
@@ -20,7 +26,7 @@ namespace RecordYourName_API.Controllers
         }
 
         [HttpPost("Login")]
-        public IActionResult PartnerUserLogin(PartnerUserLoginRequest partnerUserLoginRequest)
+        public async Task<IActionResult> PartnerUserLoginAsync(PartnerUserLoginRequest partnerUserLoginRequest)
         {
             try
             {
@@ -31,7 +37,31 @@ namespace RecordYourName_API.Controllers
                 }
                 else
                 {
-                    return Ok(partnerUserLoginRequest.userid);
+                        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Startup.ConnectionStrings.GetSection("SigningKey").Value));
+                        var signingCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+                        var encryptionkey = Encoding.UTF8.GetBytes(Startup.ConnectionStrings.GetSection("EncryptionKey").Value);
+                        var encryptingCredentials = new EncryptingCredentials(new SymmetricSecurityKey(encryptionkey), SecurityAlgorithms.Aes128KW, SecurityAlgorithms.Aes128CbcHmacSha256);
+
+
+                        var claims = new[] {
+                            new Claim("userid", partnerUserLoginRequest.userid)
+                        };
+
+                        var descriptor = new SecurityTokenDescriptor
+                        {
+                            Issuer = Startup.ConnectionStrings.GetSection("Issuer").Value,
+                            Audience = Startup.ConnectionStrings.GetSection("Audience").Value,
+                            IssuedAt = DateTime.Now,
+                            Expires = DateTime.Now.AddMinutes(5),
+                            SigningCredentials = signingCredentials,
+                            EncryptingCredentials = encryptingCredentials,
+                            Subject = new ClaimsIdentity(claims)
+                        };
+
+                        var tokenHandler = new JwtSecurityTokenHandler();
+                        var securityToken = tokenHandler.CreateToken(descriptor);
+                        var jwt = tokenHandler.WriteToken(securityToken);
+                        return Ok(new { token = jwt });
                 }
             }
             catch(Exception ex)

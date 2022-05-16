@@ -7,6 +7,7 @@ using PartnerApplicationServices.DataAccess;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace PartnerApplicationServices.Controllers
 {
@@ -23,15 +24,14 @@ namespace PartnerApplicationServices.Controllers
         }
 
         [HttpGet("GetFriends")]
-        public async Task<IActionResult> GetFriends(string userId)
+        public async Task<IActionResult> GetFriends()
         {
-            if (String.IsNullOrEmpty(userId))
-            {
-                return BadRequest();
-            }
-
             List<GetFriendResponse> list = new List<GetFriendResponse>();
-            list = _friendRepo.GetFriend(userId);
+            list = _friendRepo.GetFriend(Startup.UserClaims.FirstOrDefault(x => x.Type == "userid")?.Value);
+            if(list.Count == 0)
+            {
+                return NoContent();
+            }
             return Ok(list);
         }
 
