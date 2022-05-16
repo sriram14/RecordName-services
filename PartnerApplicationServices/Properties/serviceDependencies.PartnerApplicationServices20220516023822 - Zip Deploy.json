@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "apis1": {
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/RecordName/apis/PartnerApplicationServices",
-      "type": "apis.azure",
-      "apiEndpoint": "https://recordname.azure-api.net/partner"
-    }
-  }
-}
