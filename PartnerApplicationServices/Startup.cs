@@ -23,7 +23,7 @@ namespace PartnerApplicationServices
     {
         public static IEnumerable<Claim> UserClaims;
         public static IConfigurationSection ConnectionStrings { get; private set; }
-        private TokenValidationParameters tokenValidationParameters;
+        public static TokenValidationParameters tokenValidationParameters;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -81,8 +81,16 @@ namespace PartnerApplicationServices
                     string token = context.Request.Headers["Authorization"];
                     token = token.Substring("Bearer ".Length);
                     var tokenHandler = new JwtSecurityTokenHandler();
-                    var claimsPrincipal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
-                    UserClaims = claimsPrincipal.Claims;
+                    try
+                    {
+                        var claimsPrincipal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken validatedToken);
+                        UserClaims = claimsPrincipal.Claims;
+                    }
+                    catch(Exception e)
+                    {
+
+                    }
+                    
                 }
                 await next();
             });

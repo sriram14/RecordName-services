@@ -28,8 +28,7 @@ namespace PartnerApplicationServices.Services
 
 
             var claims = new[] {
-                new Claim("userid", userInfo.userid),
-                new Claim("IsAdmin", "true")
+                new Claim("userid", userInfo.userid)
             };
 
             var descriptor = new SecurityTokenDescriptor
@@ -37,7 +36,7 @@ namespace PartnerApplicationServices.Services
                 Issuer = Startup.ConnectionStrings.GetSection("Issuer").Value,
                 Audience = Startup.ConnectionStrings.GetSection("Audience").Value,
                 IssuedAt = DateTime.Now,
-                Expires = DateTime.Now.AddMinutes(5),
+                Expires = DateTime.Now.AddMinutes(15),
                 SigningCredentials = signingCredentials,
                 EncryptingCredentials = encryptingCredentials,
                 Subject = new ClaimsIdentity(claims)

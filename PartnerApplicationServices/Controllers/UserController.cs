@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using PartnerApplicationServices.DataAccess;
 using PartnerApplicationServices.Models;
 using PartnerApplicationServices.Services;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace PartnerApplicationServices.Controllers
@@ -91,6 +94,31 @@ namespace PartnerApplicationServices.Controllers
             }
 
 
+        }
+
+        [AllowAnonymous]
+        [HttpPost("ValidateToken")]
+        public IActionResult ValidateToken([FromBody] TokenValidationRequest tokenValidationRequest)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+            try
+            {
+
+                var claimsPrincipal = tokenHandler.ValidateToken(tokenValidationRequest.token, Startup.tokenValidationParameters, out SecurityToken validatedToken);
+                IEnumerable<Claim> claims = claimsPrincipal.Claims;
+                var userid = claims.FirstOrDefault(x => x.Type == "userid")?.Value;
+                bool isAdmin = _userRepo.isAdmin(userid);
+                bool userIdMatch = userid  == tokenValidationRequest.userid;
+                if(isAdmin || userIdMatch)
+                {
+                    return Ok();
+                }
+                return Unauthorized();
+            }
+            catch (Exception e)
+            {
+                return Unauthorized();
+            }
         }
 
         [HttpPost("DeleteAdmin")]

@@ -5,7 +5,7 @@
     "version": "v1"
   },
   "paths": {
-    "/GetFriends": {
+    "/api/Friend/GetFriends": {
       "get": {
         "tags": [
           "Friend"
@@ -17,7 +17,7 @@
         }
       }
     },
-    "/AddFriend": {
+    "/api/Friend/AddFriend": {
       "post": {
         "tags": [
           "Friend"
@@ -36,7 +36,7 @@
         }
       }
     },
-    "/RemoveFriend": {
+    "/api/Friend/RemoveFriend": {
       "post": {
         "tags": [
           "Friend"
@@ -138,6 +138,51 @@
         }
       }
     },
+    "/api/User/ValidateToken": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/TokenValidationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/User/DeleteAdmin": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "userid",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/User/GetUserDetail": {
       "get": {
         "tags": [
@@ -149,6 +194,18 @@
             "name": "userid",
             "type": "string"
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/User/GetMyProfile": {
+      "get": {
+        "tags": [
+          "User"
         ],
         "responses": {
           "200": {
@@ -232,6 +289,17 @@
           "type": "string"
         },
         "password": {
+          "type": "string"
+        }
+      }
+    },
+    "TokenValidationRequest": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "userid": {
           "type": "string"
         }
       }

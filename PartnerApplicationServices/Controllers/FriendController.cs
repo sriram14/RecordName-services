@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace PartnerApplicationServices.Controllers
 {
-    [Route("")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class FriendController : ControllerBase

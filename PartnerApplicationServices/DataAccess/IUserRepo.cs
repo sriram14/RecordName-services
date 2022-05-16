@@ -12,5 +12,6 @@ namespace PartnerApplicationServices.DataAccess
         GetUserDetailResponse GetUserDetail(string userId);
         string UpdateUserDetail(UpdateUserDetailRequest updateUserDetailRequest);
         string DeleteAdmin(string createrUserId, string userid);
+        bool isAdmin(string userid);
     }
 }

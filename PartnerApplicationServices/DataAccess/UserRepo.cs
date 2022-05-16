@@ -232,5 +232,20 @@ namespace PartnerApplicationServices.DataAccess
             results = base.UpdateDataToPartnerDB("select public.deleteadminrole(:createruserid, :othersuserid, :errors)", CommandType.Text, npgsqlParameters);
             return results;
         }
+
+        public bool isAdmin(string userid)
+        {
+            NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[1];
+
+            NpgsqlParameter uid = new NpgsqlParameter("uid", NpgsqlDbType.Varchar);
+            uid.Value = userid;
+            npgsqlParameters[0] = uid;
+
+            var DbResponse = base.GetDataFromPartnerDBAsync("select * from public.isadmin(:uid)", CommandType.Text, npgsqlParameters).Tables[0];
+
+            var status = _utility.ConvertToData<TokenValidationResponse>(DbResponse);
+;
+            return status[0].isadmin;
+        }
     }
 }
