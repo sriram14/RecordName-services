@@ -16,15 +16,28 @@ namespace UploadFilesServer.DataAccess
             get
             {
                 IConfigurationSection connectionStrings =  Startup.ConnectionStrings;
+                return connectionStrings.GetSection("PartnerApplicationDBString").Value;
+
+            }
+        }
+
+        protected string RecordYourNameDBConnection
+        {
+            get
+            {
+                IConfigurationSection connectionStrings = Startup.ConnectionStrings;
                 return connectionStrings.GetSection("RecordYourNameDBString").Value;
 
             }
         }
 
-        public virtual async Task<DataSet> GetDataFromPartnerDBAsync(string query, CommandType commandType, NpgsqlParameter[] npgsqlParameters = null)
+
+        
+
+        public virtual DataSet GetDataFromPartnerDBAsync(string query, CommandType commandType, NpgsqlParameter[] npgsqlParameters = null)
         {
             DataSet dataSet = new DataSet();
-            await using(NpgsqlConnection conn = new NpgsqlConnection(PartnerDBConnection))
+            using(NpgsqlConnection conn = new NpgsqlConnection(PartnerDBConnection))
             {
                 using(NpgsqlCommand command = new NpgsqlCommand(query))
                 {
@@ -46,11 +59,36 @@ namespace UploadFilesServer.DataAccess
             return dataSet;
         }
 
-        public virtual string UpdateDataToPartnerDB(string query, CommandType commandType, NpgsqlParameter[] npgsqlParameters, bool includeErrorsinOutput = true)
+        public virtual DataSet GetDataFromRecordYourNameDBAsync(string query, CommandType commandType, NpgsqlParameter[] npgsqlParameters = null)
+        {
+            DataSet dataSet = new DataSet();
+            using (NpgsqlConnection conn = new NpgsqlConnection(RecordYourNameDBConnection))
+            {
+                using (NpgsqlCommand command = new NpgsqlCommand(query))
+                {
+                    command.CommandType = commandType;
+                    command.Connection = conn;
+                    if (npgsqlParameters != null)
+                    {
+                        AddParamtersToCommand(command, npgsqlParameters);
+                    }
+                    using (NpgsqlDataAdapter npgsqlDataAdapter = new NpgsqlDataAdapter(command))
+                    {
+                        conn.Open();
+                        npgsqlDataAdapter.Fill(dataSet);
+                    }
+                    conn.Close();
+                }
+
+            }
+            return dataSet;
+        }
+
+        public virtual string UpdateDataToRecordYourNameDB(string query, CommandType commandType, NpgsqlParameter[] npgsqlParameters, bool includeErrorsinOutput = true)
         {
             string errors = string.Empty;
            
-            using (NpgsqlConnection conn = new NpgsqlConnection(PartnerDBConnection))
+            using (NpgsqlConnection conn = new NpgsqlConnection(RecordYourNameDBConnection))
             {
                 using (NpgsqlCommand command = new NpgsqlCommand(query))
                 {

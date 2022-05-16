@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using UploadFilesServer.services;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
+using UploadFilesServer.Common;
 
 namespace UploadFilesServer
 {
@@ -31,6 +32,7 @@ namespace UploadFilesServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IUtility, Common.Utility>();
             services.AddScoped<IUploadService, UploadService>();
             services.AddHttpContextAccessor();
             ConnectionStrings = Configuration.GetSection("ConnectionStrings");

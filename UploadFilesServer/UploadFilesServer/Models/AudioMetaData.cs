@@ -15,4 +15,9 @@ namespace UploadFilesServer.Models
         public int fileSize { get; set; }
         public string fileType { get; set; }  
     }
+
+    public class UserResponse
+    {
+        public bool isadmin { get; set; }
+    }
 }

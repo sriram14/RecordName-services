@@ -11,6 +11,10 @@ namespace UploadFilesServer.services
     {
         Task<string> UploadAsync(Stream fileStream, string fileName, string contentType);
         Task<string> AddAudioMetaData(AudioMetaData audioMetaData);
+        Task<string> AddAudioMetaData(AudioMetaData audioMetaData, string createrUserId);
+
+        public bool isAdminUser(string userid);
+
 
     }
 }
