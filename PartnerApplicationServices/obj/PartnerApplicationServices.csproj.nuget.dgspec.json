@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Standard\\source\\repos\\SpeechToken\\RecordName-services\\PartnerApplicationServices\\PartnerApplicationServices.csproj": {}
+    "E:\\Github\\RecordName-services\\PartnerApplicationServices\\PartnerApplicationServices.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Standard\\source\\repos\\SpeechToken\\RecordName-services\\PartnerApplicationServices\\PartnerApplicationServices.csproj": {
+    "E:\\Github\\RecordName-services\\PartnerApplicationServices\\PartnerApplicationServices.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Standard\\source\\repos\\SpeechToken\\RecordName-services\\PartnerApplicationServices\\PartnerApplicationServices.csproj",
+        "projectUniqueName": "E:\\Github\\RecordName-services\\PartnerApplicationServices\\PartnerApplicationServices.csproj",
         "projectName": "PartnerApplicationServices",
-        "projectPath": "C:\\Users\\Standard\\source\\repos\\SpeechToken\\RecordName-services\\PartnerApplicationServices\\PartnerApplicationServices.csproj",
-        "packagesPath": "C:\\Users\\Standard\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Standard\\source\\repos\\SpeechToken\\RecordName-services\\PartnerApplicationServices\\obj\\",
+        "projectPath": "E:\\Github\\RecordName-services\\PartnerApplicationServices\\PartnerApplicationServices.csproj",
+        "packagesPath": "C:\\Users\\Divya1798\\.nuget\\packages\\",
+        "outputPath": "E:\\Github\\RecordName-services\\PartnerApplicationServices\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "E:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Standard\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Divya1798\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -59,12 +63,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[5.0.12, 5.0.12]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -73,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }
