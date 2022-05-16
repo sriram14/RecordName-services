@@ -50,5 +50,16 @@ namespace PartnerAppRegistrationService.Controllers
 
         }
 
+        [HttpGet("GetAllPartnerApps")]
+        public IActionResult GetAllPartnerApps()
+        {
+
+
+            return Ok(_partnerAppRepo.GetAllPartnerApps());
+
+
+
+        }
+
     }
 }
