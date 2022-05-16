@@ -11,5 +11,6 @@ namespace PartnerApplicationServices.DataAccess
         public string CreateAdmin(string createrUserId, string userId);
         GetUserDetailResponse GetUserDetail(string userId);
         string UpdateUserDetail(UpdateUserDetailRequest updateUserDetailRequest);
+        string DeleteAdmin(string createrUserId, string userid);
     }
 }

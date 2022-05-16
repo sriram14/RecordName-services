@@ -93,6 +93,24 @@ namespace PartnerApplicationServices.Controllers
 
         }
 
+        [HttpPost("DeleteAdmin")]
+        public IActionResult DeleteAdmin(string userid)
+        {
+
+            string result = _userRepo.DeleteAdmin(Startup.UserClaims.FirstOrDefault(x => x.Type == "userid")?.Value, userid);
+            if (result.Equals("SUCCESS"))
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(result);
+            }
+
+
+        }
+
+
         [HttpGet("GetUserDetail")]
         public IActionResult GetUserDetail(string userid)
         {

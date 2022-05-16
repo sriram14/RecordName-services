@@ -208,5 +208,29 @@ namespace PartnerApplicationServices.DataAccess
 
             return success_status;
         }
+
+        public string DeleteAdmin(string createrUserId, string userid)
+        {
+            string results = string.Empty;
+            NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[3];
+
+            NpgsqlParameter createruserIdParam = new NpgsqlParameter("createruserid", NpgsqlDbType.Varchar);
+            createruserIdParam.Value = createrUserId;
+            npgsqlParameters[0] = createruserIdParam;
+
+            NpgsqlParameter othersuseridParam = new NpgsqlParameter("othersuserid", NpgsqlDbType.Varchar);
+            othersuseridParam.Value = userid;
+            npgsqlParameters[1] = othersuseridParam;
+
+            NpgsqlParameter errorParam = new NpgsqlParameter("errors", NpgsqlDbType.Text, -1)
+            {
+                Direction = ParameterDirection.InputOutput
+            };
+            errorParam.Value = "";
+            npgsqlParameters[2] = errorParam;
+
+            results = base.UpdateDataToPartnerDB("select public.deleteadminrole(:createruserid, :othersuserid, :errors)", CommandType.Text, npgsqlParameters);
+            return results;
+        }
     }
 }
