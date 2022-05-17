@@ -24,25 +24,25 @@ namespace GetAudio.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string userId, int partnerid, string voiceSpeed)
+        public async Task<IActionResult> Get(string userid, string partnerid, string voicespeed, string preferredname, string gender, string country)
         {
-            if (String.IsNullOrEmpty(userId))
+            if (String.IsNullOrEmpty(userid))
             {
                 return BadRequest();
             }
 
             GetAudioRequest getAudioRequest = new GetAudioRequest();
             getAudioRequest.parterid = partnerid;
-            getAudioRequest.useridList = new List<string>() { userId };
+            getAudioRequest.useridList = new List<string>() { userid };
             string blobURL = _getAudioRepo.GetBlobURL(getAudioRequest);
-            if (String.IsNullOrEmpty(blobURL))
-            {
-                var audioFile = await GetAudioService.GetAudioFromAzure(voiceSpeed);
-                return File(audioFile, "audio/mp3");
-            } 
-            else
+            if (!String.IsNullOrEmpty(blobURL))
             {
                 var audioFile = await GetAudioService.GetBlobFromAzureBlob(blobURL);
+                return File(audioFile, "audio/mp3");
+            } 
+            else if(preferredname != null)
+            {
+                var audioFile = await GetAudioService.GetAudioFromAzure(voicespeed, preferredname, gender, country); 
                 return File(audioFile, "audio/mp3");
             }
             return BadRequest();

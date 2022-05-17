@@ -6,7 +6,7 @@ namespace GetAudio.Models
     public class GetAudioRequest
     {
         public List<string> useridList { get; set; }
-        public int parterid { get; set; }
+        public string parterid { get; set; }
     }
 
     public class GetAudioStatusResponse

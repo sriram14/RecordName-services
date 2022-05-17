@@ -11,7 +11,7 @@ namespace GetAudio.Services
 {
     public class GetAudioService
     {
-        public static async Task<byte[]> GetAudioFromAzure(string voiceSpeed)
+        public static async Task<byte[]> GetAudioFromAzure(string voiceSpeed, string preferredname, string gender, string country)
         {
             HttpResponseMessage audioResponse = null;
             using (HttpClient client = new HttpClient())
@@ -26,14 +26,13 @@ namespace GetAudio.Services
                     {
                         var voiceList = await voiceListResponse.Content.ReadAsStringAsync();
                         //query DB for user to get gender, name and country
-                        var Gender = "male";
-                        var Name = "Divya";
-                        var Country = "india";
-                        if (Gender == null)
+                    
+                        country = (country != null) ? country : "United States";
+                        if (gender == null)
                         {
                             var genderProfile = new List<string>() { "male", "female" };
                             Random rnd = new Random();
-                            Gender = genderProfile[rnd.Next(genderProfile.Count)];
+                            gender = genderProfile[rnd.Next(genderProfile.Count)];
 
                         }
                         List<string> ShortList = new List<string>();
@@ -45,7 +44,7 @@ namespace GetAudio.Services
                             var VoiceStatus = profile.SelectToken("Status").ToString();
                             var VoiceGender = profile.SelectToken("Gender").ToString().ToLower();
                             Console.WriteLine(VoiceLocaleName.ToLower());
-                            var isProfileIncluded = (VoiceGender.Contains(Gender) && (VoiceLocaleName.ToLower().Contains(Country) || (VoiceLocaleName.ToLower().Contains("Chinese") && Country == "china")));
+                            var isProfileIncluded = (VoiceGender.Contains(gender) && (VoiceLocaleName.ToLower().Contains(country) || (VoiceLocaleName.ToLower().Contains("Chinese") && country == "china")));
                             if (isProfileIncluded)
                             {
                                 ShortList.Add(VoiceShortName);
@@ -56,7 +55,7 @@ namespace GetAudio.Services
                         var SSML = $@"<speak version='1.0' xml:lang='en-US'>
                             <voice xml:lang='en-US' name='{ShortList[0]}'> 
                                     <prosody rate='{voiceSpeed}'>    
-                                        {Name}
+                                        {preferredname}
                                     </prosody>
                                 </voice>
                         </speak>";

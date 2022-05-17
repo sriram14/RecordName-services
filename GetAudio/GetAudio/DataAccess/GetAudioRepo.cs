@@ -18,7 +18,7 @@ namespace GetAudio.DataAccess
             long success_status = 0;
             NpgsqlParameter[] npgsqlParameters = new NpgsqlParameter[2];
 
-            NpgsqlParameter userIdParam = new NpgsqlParameter("pid", NpgsqlDbType.Integer);
+            NpgsqlParameter userIdParam = new NpgsqlParameter("pid", NpgsqlDbType.Text);
             userIdParam.Value = getAudioRequest.parterid;
             npgsqlParameters[0] = userIdParam;
 
@@ -26,7 +26,7 @@ namespace GetAudio.DataAccess
             pwdParam.Value = getAudioRequest.useridList;
             npgsqlParameters[1] = pwdParam;
 
-            var loginStatus = base.GetAudioDataFromDB("SELECT * from public.getaudio1(:pid,:userdetail)", CommandType.Text, npgsqlParameters).Tables[0];
+            var loginStatus = base.GetAudioDataFromDB("SELECT * from public.getaudio(:pid,:userdetail)", CommandType.Text, npgsqlParameters).Tables[0];
 
             var result = _utility.ConvertToData<GetAudioStatusResponse>(loginStatus);
 
