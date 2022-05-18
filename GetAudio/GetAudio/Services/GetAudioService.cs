@@ -44,7 +44,7 @@ namespace GetAudio.Services
                             var VoiceStatus = profile.SelectToken("Status").ToString();
                             var VoiceGender = profile.SelectToken("Gender").ToString().ToLower();
                             Console.WriteLine(VoiceLocaleName.ToLower());
-                            var isProfileIncluded = (VoiceGender.Contains(gender) && (VoiceLocaleName.ToLower().Contains(country) || (VoiceLocaleName.ToLower().Contains("Chinese") && country == "china")));
+                            var isProfileIncluded = (VoiceGender.Equals(gender.ToLower()) && (VoiceLocaleName.ToLower().Contains(country.ToLower()) || (VoiceLocaleName.ToLower().Contains("chinese") && country == "china")));
                             if (isProfileIncluded)
                             {
                                 ShortList.Add(VoiceShortName);
